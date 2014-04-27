@@ -45,12 +45,12 @@ public class Game
         portugal = new Room("el reino de Portugal");                             
 
         // initialise room exits
-        galicia.setExits(null, leon, portugal, null);
-        leon.setExits(null, null, castilla, galicia);
-        castilla.setExits(leon, aragon, granada, portugal);
-        granada.setExits(castilla, null, null, null);
-        aragon.setExits(null, null, null, castilla);
-        portugal.setExits(galicia, castilla, null, null);
+        galicia.setExits(null, leon, portugal, null, castilla);
+        leon.setExits(null, null, castilla, galicia, null);
+        castilla.setExits(leon, aragon, granada, portugal, null);
+        granada.setExits(castilla, null, null, null, null);
+        aragon.setExits(null, null, null, castilla, null);
+        portugal.setExits(galicia, castilla, null, null, null);
 
         currentRoom = leon;  // start game outside
     }
@@ -158,6 +158,9 @@ public class Game
         if(direction.equals("west")) {
             nextRoom = currentRoom.westExit;
         }
+        if(direction.equals("southEast")) {
+            nextRoom = currentRoom.southEastExit;
+        }
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
@@ -199,6 +202,9 @@ public class Game
         }
         if(currentRoom.westExit != null) {
             System.out.print("west ");
+        }
+        if(currentRoom.southEastExit != null) {
+            System.out.print("southExist");
         }
         System.out.println();        
     }

@@ -45,12 +45,12 @@ public class Game
         portugal = new Room("el reino de Portugal");                             
 
         // initialise room exits
-        galicia.setExits(null, leon, portugal, null, castilla);
-        leon.setExits(null, null, castilla, galicia, null);
-        castilla.setExits(leon, aragon, granada, portugal, null);
-        granada.setExits(castilla, null, null, null, null);
-        aragon.setExits(null, null, null, castilla, null);
-        portugal.setExits(galicia, castilla, null, null, null);
+        galicia.setExits(null, leon, portugal, null, castilla, null);
+        leon.setExits(null, null, castilla, galicia, null, null);
+        castilla.setExits(leon, aragon, granada, portugal, null, galicia);
+        granada.setExits(castilla, null, null, null, null, null);
+        aragon.setExits(null, null, null, castilla, null, null);
+        portugal.setExits(galicia, castilla, null, null, null, null);
 
         currentRoom = leon;  // start game outside
     }

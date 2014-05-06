@@ -37,12 +37,12 @@ public class Game
         Room galicia, leon, castilla, portugal, aragon, granada;
 
         // create the rooms
-        galicia = new Room("el reino de Galicia", "Una espada gaelica", 3.5);
-        leon = new Room("el reino de León", "El Santo Grial", 1.4);
-        castilla = new Room("el reino de Castilla", "Un cuchillo afilado", 0.5);
-        aragon = new Room("el reino de Aragon", "Una carreta", 35.5);
-        granada = new Room("el reino de Granada", "Una pocima contra el dolor de cabeza", 0.6);
-        portugal = new Room("el reino de Portugal", "Una armadura", 20.2);                           
+        galicia = new Room("el reino de Galicia");
+        leon = new Room("el reino de León");
+        castilla = new Room("el reino de Castilla");
+        aragon = new Room("el reino de Aragon");
+        granada = new Room("el reino de Granada");
+        portugal = new Room("el reino de Portugal");                          
 
         // initialise room exits
         galicia.setExit("east", leon);
@@ -65,6 +65,22 @@ public class Game
 
         portugal.setExit("north", galicia);
         portugal.setExit("east", castilla);
+        
+        //define the items
+        galicia.addItem(new Item("Una espada gaelica", 3.5));
+        galicia.addItem(new Item("Un tonel de vino", 10.2));
+        
+        leon.addItem(new Item("El Santo Grial", 1.4));
+        
+        castilla.addItem(new Item("Un cuchillo afilado", 0.5));
+        castilla.addItem(new Item("Un cofre de oro", 3.0));
+        castilla.addItem(new Item("Un baul de madera", 24.8));
+        
+        aragon.addItem(new Item("Una carreta", 35.5));
+        
+        granada.addItem(new Item("Una pocima contra el dolor de cabeza", 0.6));
+        
+        portugal.addItem(new Item("Una armadura", 20.2));        
 
         currentRoom = leon;  // start game outside
     }

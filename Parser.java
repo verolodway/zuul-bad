@@ -63,15 +63,12 @@ public class Parser
         }
     }
 
-    /** 
-     * Return the field commands 
-     *
-     * @return The field commands
+    /**
+     * Print out a list of valid command words
      */
-    public CommandWords getCommands()
+    public void showCommands()
     {
-        return commands;
+        commands.showAll();
     }
 
-    
 }

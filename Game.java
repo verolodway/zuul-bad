@@ -19,6 +19,8 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private Room lastRoom;
+    
 
     /**
      * Create the game and initialise its internal map.
@@ -83,6 +85,7 @@ public class Game
         portugal.addItem(new Item("Una armadura", 20.2));        
 
         currentRoom = leon;  // start game outside
+        lastRoom = null;
     }
 
     /**
@@ -143,6 +146,9 @@ public class Game
         else if(commandWord.equals("eat")) {
             eat();
         }
+        else if(commandWord.equals("back")) {
+            back();
+        }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
@@ -172,6 +178,7 @@ public class Game
      */
     private void goRoom(Command command) 
     {
+
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
             System.out.println("Go where?");
@@ -187,6 +194,7 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
+            lastRoom = currentRoom;            
             currentRoom = nextRoom;
             printLocationInfo();
         }
@@ -222,6 +230,15 @@ public class Game
     private void eat() 
     {
         System.out.println("You have eaten now and you are not hungry any more");
+    }
+    
+    /**
+     * Return to the previous room
+     */
+    private void back()
+    {
+        currentRoom = lastRoom;
+        printLocationInfo();
     }
 
     

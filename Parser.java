@@ -62,4 +62,16 @@ public class Parser
             return new Command(null, word2); 
         }
     }
+
+    /** 
+     * Return the field commands 
+     *
+     * @return The field commands
+     */
+    public CommandWords getCommands()
+    {
+        return commands;
+    }
+
+    
 }

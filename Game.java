@@ -37,12 +37,12 @@ public class Game
         Room galicia, leon, castilla, portugal, aragon, granada;
 
         // create the rooms
-        galicia = new Room("el reino de Galicia");
-        leon = new Room("el reino de León");
-        castilla = new Room("el reino de Castilla");
-        aragon = new Room("el reino de Aragon");
-        granada = new Room("el reino de Granada");
-        portugal = new Room("el reino de Portugal");                             
+        galicia = new Room("el reino de Galicia", "Una espada gaelica", 3.5);
+        leon = new Room("el reino de León", "El Santo Grial", 1.4);
+        castilla = new Room("el reino de Castilla", "Un cuchillo afilado", 0.5);
+        aragon = new Room("el reino de Aragon", "Una carreta", 35.5);
+        granada = new Room("el reino de Granada", "Una pocima contra el dolor de cabeza", 0.6);
+        portugal = new Room("el reino de Portugal", "Una armadura", 20.2);                           
 
         // initialise room exits
         galicia.setExit("east", leon);

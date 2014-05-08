@@ -151,7 +151,7 @@ public class Game
             player.eat();
         }
         else if(commandWord.equals("back")) {
-            back();
+            player.back();
         }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
@@ -191,19 +191,5 @@ public class Game
             return true;  // signal that we want to quit
         }
     }
-    
-    /**
-     * Return to the previous room
-     */
-    private void back()
-    {
-        if (!visitedRooms.empty()) {
-            currentRoom = visitedRooms.pop();
-            player.printLocationInfo();
-        }
-        else {
-            System.out.println("You are at the beggining of the game");
-            System.out.println();
-        }
-    }
+   
 }

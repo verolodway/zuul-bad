@@ -75,4 +75,19 @@ public class Player
             printLocationInfo();
         }
     }
+    
+    /**
+     * Return to the previous room
+     */
+    public void back()
+    {
+        if (!visitedRooms.empty()) {
+            currentRoom = visitedRooms.pop();
+            printLocationInfo();
+        }
+        else {
+            System.out.println("You are at the beggining of the game");
+            System.out.println();
+        }
+    }    
 }

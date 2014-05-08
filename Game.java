@@ -120,7 +120,7 @@ public class Game
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
-        printLocationInfo();
+        player.printLocationInfo();
     }
 
     /**
@@ -145,10 +145,10 @@ public class Game
             goRoom(command);
         }
         else if(commandWord.equals("look")) {
-            look();
+            player.look();
         }
         else if(commandWord.equals("eat")) {
-            eat();
+            player.eat();
         }
         else if(commandWord.equals("back")) {
             back();
@@ -200,7 +200,7 @@ public class Game
         else {
             visitedRooms.push(currentRoom);          
             currentRoom = nextRoom;
-            printLocationInfo();
+            player.printLocationInfo();
         }
     }
 
@@ -219,22 +219,6 @@ public class Game
             return true;  // signal that we want to quit
         }
     }
-
-    /** 
-     * Print the room's long description 
-     */   
-    private void look()
-    {
-        printLocationInfo();
-    }
-
-    /**
-     * The player eats
-     */  
-    private void eat() 
-    {
-        System.out.println("You have eaten now and you are not hungry any more");
-    }
     
     /**
      * Return to the previous room
@@ -243,17 +227,11 @@ public class Game
     {
         if (!visitedRooms.empty()) {
             currentRoom = visitedRooms.pop();
-            printLocationInfo();
+            player.printLocationInfo();
         }
         else {
             System.out.println("You are at the beggining of the game");
             System.out.println();
         }
-    }
-
-    
-    private void printLocationInfo()
-    {
-        System.out.println(currentRoom.getLongDescription());      
     }
 }

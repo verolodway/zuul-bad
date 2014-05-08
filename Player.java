@@ -23,4 +23,28 @@ public class Player
     {
         currentRoom = room;
     }
+    
+    /** 
+     * The player looks 
+     */   
+    public void look()
+    {
+        printLocationInfo();
+    }    
+    
+    /**
+     * The player eats
+     */  
+    public void eat() 
+    {
+        System.out.println("You have eaten now and you are not hungry any more");
+    }
+    
+    /**
+     * Print the long description of the current room
+     */
+    public void printLocationInfo() 
+    {
+        System.out.println(currentRoom.getLongDescription());      
+    }
 }

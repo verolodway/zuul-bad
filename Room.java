@@ -97,7 +97,27 @@ public class Room
         items.add(item);
     }
     
-    
+
+    /**
+     * Return the item with the given id
+     * 
+     * @return item the item with the given id
+     */
+    public Item getItem(int id)
+    {
+        boolean searching = true;
+        Item itemFounded = null;
+        int index = 0;
+        while ((index < items.size()) && searching) {
+            Item item = items.get(index);
+            if (item.getId() == id) {
+                searching = false;
+                itemFounded = item;
+            }
+            index++;
+        }
+        return itemFounded;
+    }
     
 
     

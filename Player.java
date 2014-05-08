@@ -19,5 +19,8 @@ public class Player
         visitedRooms = new Stack<>();
     }
 
-
+    public void setCurrentRoom(Room room)
+    {
+        currentRoom = room;
+    }
 }

@@ -22,6 +22,7 @@ public class Game
     private Parser parser;
     private Room currentRoom;
     private Stack<Room> visitedRooms;
+    private Player player;
     
 
     /**
@@ -29,6 +30,7 @@ public class Game
      */
     public Game() 
     {
+        player = new Player();
         createRooms();
         parser = new Parser();
     }

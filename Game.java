@@ -69,20 +69,20 @@ public class Game
         portugal.setExit("east", castilla);
         
         //define the items
-        galicia.addItem(new Item("Una espada gaelica", 3.5));
-        galicia.addItem(new Item("Un tonel de vino", 10.2));
+        galicia.addItem(new Item("Una espada gaelica", 3.5, true));
+        galicia.addItem(new Item("Un tonel de vino", 10.2, true));
         
-        leon.addItem(new Item("El Santo Grial", 1.4));
+        leon.addItem(new Item("El Santo Grial", 1.4, false));
         
-        castilla.addItem(new Item("Un cuchillo afilado", 0.5));
-        castilla.addItem(new Item("Un cofre de oro", 3.0));
-        castilla.addItem(new Item("Un baul de madera", 24.8));
+        castilla.addItem(new Item("Un cuchillo afilado", 0.5, true));
+        castilla.addItem(new Item("Un cofre de oro", 3.0, true));
+        castilla.addItem(new Item("Un baul de madera", 24.8, true));
         
-        aragon.addItem(new Item("Una carreta", 35.5));
+        aragon.addItem(new Item("Una carreta", 35.5, true));
         
-        granada.addItem(new Item("Una pocima contra el dolor de cabeza", 0.6));
+        granada.addItem(new Item("Una pocima contra el dolor de cabeza", 0.6, true));
         
-        portugal.addItem(new Item("Una armadura", 20.2));        
+        portugal.addItem(new Item("Una armadura", 20.2, true));        
 
         player.setCurrentRoom(leon);
     }

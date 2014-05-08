@@ -130,14 +130,19 @@ public class Player
             System.out.println("This room has not this item");
         }
         else {
-            if ((itemToTake.getWeight() + getTotalWeightItems()) < maxWeight) {
-                items.add(itemToTake);
-                System.out.println("You has taken: " + itemToTake.getLongDescription());
-                thePlayerTakeTheItem = true;
-                currentRoom.removeItem(itemToTake.getId());
+            if (itemToTake.canBeTaken()) {
+                if ((itemToTake.getWeight() + getTotalWeightItems()) < maxWeight) {
+                    items.add(itemToTake);
+                    System.out.println("You has taken: " + itemToTake.getLongDescription());
+                    thePlayerTakeTheItem = true;
+                    currentRoom.removeItem(itemToTake.getId());
+                }
+                else {
+                    System.out.println("You are not able to carry this weight");
+                }
             }
             else {
-                System.out.println("You are not able to carry this weight");
+                System.out.println("This item can not be taken");
             }
         }
         

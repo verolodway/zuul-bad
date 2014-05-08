@@ -9,6 +9,7 @@ public class Item
 {
     private String description;
     private double weight;
+    private int id;
     
     /**
      * Constructor for objects of class Item
@@ -16,8 +17,9 @@ public class Item
      * @param description The item's description
      * @param weight The item's weight
      */
-    public Item(String description, double weight)
+    public Item(int id, String description, double weight)
     {
+        this.id = id;
         this.description = description;
         this.weight = weight;
     }
@@ -29,7 +31,7 @@ public class Item
      */
     public String getLongDescription()
     {
-        return description + " (" + weight + " kg.)";
+        return "ID(" + id + ") " + description + " (" + weight + " kg.)";
     }
     
 }

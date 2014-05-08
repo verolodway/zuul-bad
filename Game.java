@@ -142,7 +142,7 @@ public class Game
             printHelp();
         }
         else if (commandWord.equals("go")) {
-            goRoom(command);
+            player.goRoom(command);
         }
         else if(commandWord.equals("look")) {
             player.look();
@@ -174,34 +174,6 @@ public class Game
         System.out.println();
         System.out.println("Your command words are:");
         parser.showCommands();
-    }
-
-    /** 
-     * Try to go in one direction. If there is an exit, enter
-     * the new room, otherwise print an error message.
-     */
-    private void goRoom(Command command) 
-    {
-
-        if(!command.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
-            System.out.println("Go where?");
-            return;
-        }
-
-        String direction = command.getSecondWord();
-
-        // Try to leave current room.      
-        Room nextRoom = currentRoom.getExit(direction);
-
-        if (nextRoom == null) {
-            System.out.println("There is no door!");
-        }
-        else {
-            visitedRooms.push(currentRoom);          
-            currentRoom = nextRoom;
-            player.printLocationInfo();
-        }
     }
 
     /** 

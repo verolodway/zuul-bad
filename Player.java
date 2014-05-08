@@ -47,4 +47,32 @@ public class Player
     {
         System.out.println(currentRoom.getLongDescription());      
     }
+    
+    /** 
+     * Try to go in one direction. If there is an exit, enter
+     * the new room, otherwise print an error message.
+     */
+    public void goRoom(Command command) 
+    {
+
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            System.out.println("Go where?");
+            return;
+        }
+
+        String direction = command.getSecondWord();
+
+        // Try to leave current room.      
+        Room nextRoom = currentRoom.getExit(direction);
+
+        if (nextRoom == null) {
+            System.out.println("There is no door!");
+        }
+        else {
+            visitedRooms.push(currentRoom);          
+            currentRoom = nextRoom;
+            printLocationInfo();
+        }
+    }
 }

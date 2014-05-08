@@ -36,4 +36,13 @@ public class Item
         return "ID(" + id + ") " + description + " (" + weight + " kg.)";
     }
     
+    /**
+     * Get the item's id
+     * 
+     * @return id The item's id
+     */
+    public int getId()
+    {
+        return id;
+    }
 }

@@ -97,9 +97,59 @@ public class Room
         items.add(item);
     }
     
-    
-    
 
+    /**
+     * Return the item with the given id
+     * 
+     * @return item the item with the given id
+     */
+    public Item getItem(int id)
+    {
+        Item itemFound = null;
+        
+        int indexOfTheItem = getIndexOfItem(id);      
+        if (indexOfTheItem >= 0)
+            itemFound = items.get(indexOfTheItem);
+            
+        return itemFound;
+    }
+    
+    /**
+     * Return the index of the item with the given id
+     * 
+     * @param id the id of the item
+     */
+    private int getIndexOfItem(int id)
+    {
+        boolean found = false;
+        int index = 0;
+        int indexFound = -1;
+        
+        while ((index < items.size()) && !found) {
+            Item item = items.get(index);
+            if (item.getId() == id) {
+                found = true;
+                indexFound = index;
+            }
+            index++;
+        }
+        
+        return indexFound;        
+    }
+    
+    /**
+     * Remove the given item
+     * 
+     * @param id the id of the item to remove
+     */
+    public void removeItem(int id) 
+    {
+        int indexOfTheItem = getIndexOfItem(id);   
+        
+        if (indexOfTheItem >= 0) {
+            items.remove(indexOfTheItem);
+        }
+    }
     
     
 }

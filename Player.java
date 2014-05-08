@@ -129,4 +129,18 @@ public class Player
         
     }
     
+    /**
+     * Calculate the total weight for player's items.  
+     * 
+     * @return the total weight for the player's items
+     */
+    public double getTotalWeightItems()
+    {
+        double totalWeight = 0;
+        for (Item item : items)
+        {
+            totalWeight += item.getWeight();
+        }        
+        return totalWeight;
+    }
 }

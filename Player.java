@@ -104,4 +104,29 @@ public class Player
             System.out.println("- " + item.getLongDescription());
         }        
     }
+    
+    
+    /**
+     * Take de item contained in the given command
+     */
+    public void take(Command command)  
+    {
+        if (!command.hasSecondWord()) {
+            System.out.println("Take what?");
+            return;            
+        }
+        
+        String idItem = command.getSecondWord();    
+        Item itemToTake = currentRoom.getItem(Integer.parseInt(idItem));
+        
+        if (itemToTake == null) {
+            System.out.println("This room has not this item");
+        }
+        else {
+            items.add(itemToTake);
+            System.out.println("You has taken: " + itemToTake.getLongDescription());
+        }
+        
+    }
+    
 }

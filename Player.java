@@ -11,6 +11,8 @@ public class Player
     private Room currentRoom;
     private Stack<Room> visitedRooms;
     private ArrayList<Item> items;
+    private double maxWeight;
+    private final static double DEFAULT_MAX_WEIGHT = 10;    
     
     /**
      * Constructor for objects of class Player
@@ -20,6 +22,7 @@ public class Player
         currentRoom = null;
         visitedRooms = new Stack<>();
         items = new ArrayList<>();
+        maxWeight = DEFAULT_MAX_WEIGHT;        
     }
 
     public void setCurrentRoom(Room room)
@@ -108,12 +111,16 @@ public class Player
     
     /**
      * Take de item contained in the given command
+     * 
+     * @return true if the player can take the item, false otherwise
      */
-    public void take(Command command)  
+    public boolean take(Command command)  
     {
+        boolean thePlayerTakeTheItem = false;
+        
         if (!command.hasSecondWord()) {
             System.out.println("Take what?");
-            return;            
+            return false;            
         }
         
         String idItem = command.getSecondWord();    
@@ -123,9 +130,17 @@ public class Player
             System.out.println("This room has not this item");
         }
         else {
-            items.add(itemToTake);
-            System.out.println("You has taken: " + itemToTake.getLongDescription());
+            if ((itemToTake.getWeight() + getTotalWeightItems()) < maxWeight) {
+                items.add(itemToTake);
+                System.out.println("You has taken: " + itemToTake.getLongDescription());
+                thePlayerTakeTheItem = true;
+            }
+            else {
+                System.out.println("You are not able to carry this weight");
+            }
         }
+        
+        return thePlayerTakeTheItem;
         
     }
     

@@ -134,6 +134,7 @@ public class Player
                 items.add(itemToTake);
                 System.out.println("You has taken: " + itemToTake.getLongDescription());
                 thePlayerTakeTheItem = true;
+                currentRoom.removeItem(itemToTake.getId());
             }
             else {
                 System.out.println("You are not able to carry this weight");

@@ -108,7 +108,7 @@ public class Room
         Item itemFound = null;
         
         int indexOfTheItem = getIndexOfItem(id);      
-        if (indexOfTheItem > 0)
+        if (indexOfTheItem >= 0)
             itemFound = items.get(indexOfTheItem);
             
         return itemFound;
@@ -137,7 +137,19 @@ public class Room
         return indexFound;        
     }
     
-
+    /**
+     * Remove the given item
+     * 
+     * @param id the id of the item to remove
+     */
+    public void removeItem(int id) 
+    {
+        int indexOfTheItem = getIndexOfItem(id);   
+        
+        if (indexOfTheItem >= 0) {
+            items.remove(indexOfTheItem);
+        }
+    }
     
     
 }

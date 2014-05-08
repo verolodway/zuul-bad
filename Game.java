@@ -84,6 +84,7 @@ public class Game
         
         portugal.addItem(new Item("Una armadura", 20.2));        
 
+        player.setCurrentRoom(leon);
     }
 
     /**

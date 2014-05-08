@@ -105,18 +105,13 @@ public class Room
      */
     public Item getItem(int id)
     {
-        boolean searching = true;
-        Item itemFounded = null;
-        int index = 0;
-        while ((index < items.size()) && searching) {
-            Item item = items.get(index);
-            if (item.getId() == id) {
-                searching = false;
-                itemFounded = item;
-            }
-            index++;
-        }
-        return itemFounded;
+        Item itemFound = null;
+        
+        int indexOfTheItem = getIndexOfItem(id);      
+        if (indexOfTheItem > 0)
+            itemFound = items.get(indexOfTheItem);
+            
+        return itemFound;
     }
     
     /**

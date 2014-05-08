@@ -1,4 +1,5 @@
 import java.util.Stack;
+import java.util.ArrayList;
 /**
  * A player of the game
  * 
@@ -9,6 +10,7 @@ public class Player
 {
     private Room currentRoom;
     private Stack<Room> visitedRooms;
+    private ArrayList<Item> items;
     
     /**
      * Constructor for objects of class Player
@@ -17,6 +19,7 @@ public class Player
     {
         currentRoom = null;
         visitedRooms = new Stack<>();
+        items = new ArrayList<>();
     }
 
     public void setCurrentRoom(Room room)

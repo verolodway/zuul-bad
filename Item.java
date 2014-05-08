@@ -45,4 +45,14 @@ public class Item
     {
         return id;
     }
+    
+    /**
+     * Get the item's weight
+     * 
+     * @return weight the item's weight in kg
+     */
+    public double getWeight()
+    {
+        return weight;
+    }
 }

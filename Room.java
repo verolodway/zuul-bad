@@ -119,6 +119,29 @@ public class Room
         return itemFounded;
     }
     
+    /**
+     * Return the index of the item with the given id
+     * 
+     * @param id the id of the item
+     */
+    private int getIndexOfItem(int id)
+    {
+        boolean found = false;
+        int index = 0;
+        int indexFound = -1;
+        
+        while ((index < items.size()) && !found) {
+            Item item = items.get(index);
+            if (item.getId() == id) {
+                found = true;
+                indexFound = index;
+            }
+            index++;
+        }
+        
+        return indexFound;        
+    }
+    
 
     
     

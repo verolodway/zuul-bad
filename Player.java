@@ -13,7 +13,7 @@ public class Player
     private ArrayList<Item> items;
     private double maxWeight;
     private final static double DEFAULT_MAX_WEIGHT = 10;    
-    
+
     /**
      * Constructor for objects of class Player
      */
@@ -29,7 +29,7 @@ public class Player
     {
         currentRoom = room;
     }
-    
+
     /** 
      * The player looks 
      */   
@@ -37,7 +37,7 @@ public class Player
     {
         printLocationInfo();
     }    
-    
+
     /**
      * The player eats
      */  
@@ -45,7 +45,7 @@ public class Player
     {
         System.out.println("You have eaten now and you are not hungry any more");
     }
-    
+
     /**
      * Print the long description of the current room
      */
@@ -53,7 +53,7 @@ public class Player
     {
         System.out.println(currentRoom.getLongDescription());      
     }
-    
+
     /** 
      * Try to go in one direction. If there is an exit, enter
      * the new room, otherwise print an error message.
@@ -81,7 +81,7 @@ public class Player
             printLocationInfo();
         }
     }
-    
+
     /**
      * Return to the previous room
      */
@@ -96,7 +96,7 @@ public class Player
             System.out.println();
         }
     } 
-    
+
     /**
      * Prints the items of the player
      */
@@ -107,8 +107,7 @@ public class Player
             System.out.println("- " + item.getLongDescription());
         }        
     }
-    
-    
+
     /**
      * Take de item contained in the given command
      * 
@@ -117,15 +116,15 @@ public class Player
     public boolean take(Command command)  
     {
         boolean thePlayerTakeTheItem = false;
-        
+
         if (!command.hasSecondWord()) {
             System.out.println("Take what?");
             return false;            
         }
-        
+
         String idItem = command.getSecondWord();    
         Item itemToTake = currentRoom.getItem(Integer.parseInt(idItem));
-        
+
         if (itemToTake == null) {
             System.out.println("This room has not this item");
         }
@@ -145,11 +144,11 @@ public class Player
                 System.out.println("This item can not be taken");
             }
         }
-        
+
         return thePlayerTakeTheItem;
-        
+
     }
-    
+
     /**
      * Calculate the total weight for player's items.  
      * 
@@ -163,5 +162,37 @@ public class Player
             totalWeight += item.getWeight();
         }        
         return totalWeight;
+    }
+
+    /**
+     * Drop an item of the player
+     * 
+     */
+    public void drop(Command command)
+    {
+        if (!command.hasSecondWord()) {
+            System.out.println("Drop what?");
+            return;            
+        }
+
+        int idItem = Integer.parseInt(command.getSecondWord());    
+
+        boolean found = false;
+        int index = 0;
+
+        while ((index < items.size()) && !found) {
+            Item item = items.get(index);
+            if (item.getId() == idItem) {
+                items.remove(index);
+                currentRoom.addItem(item);
+                System.out.println("You have drop the item " + item.getLongDescription());
+                found = true;
+            }
+            index++;
+        }    
+        
+        if (!found)
+            System.out.println("You are not carrying this item");
+
     }
 }

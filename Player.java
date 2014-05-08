@@ -92,5 +92,16 @@ public class Player
             System.out.println("You are at the beggining of the game");
             System.out.println();
         }
-    }    
+    } 
+    
+    /**
+     * Prints the items of the player
+     */
+    public void items()
+    {
+        System.out.println("Player's items:");
+        for (Item item : items) {
+            System.out.println("- " + item.getLongDescription());
+        }        
+    }
 }

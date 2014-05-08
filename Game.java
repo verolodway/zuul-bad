@@ -1,5 +1,3 @@
-import java.util.Stack;
-
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -20,8 +18,6 @@ import java.util.Stack;
 public class Game 
 {
     private Parser parser;
-    private Room currentRoom;
-    private Stack<Room> visitedRooms;
     private Player player;
     
 
@@ -88,8 +84,6 @@ public class Game
         
         portugal.addItem(new Item("Una armadura", 20.2));        
 
-        currentRoom = leon;  // start game outside
-        visitedRooms = new Stack<>();
     }
 
     /**

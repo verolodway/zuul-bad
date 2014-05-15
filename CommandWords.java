@@ -13,23 +13,12 @@ import java.util.HashMap;
 public class CommandWords
 {
     // a constant array that holds all valid command words
-    private HashMap<String, Option> validCommands;
 
     /**
      * Constructor - initialise the command words.
      */
     public CommandWords()
     {
-        validCommands = new HashMap<>();
-        validCommands.put("go", Option.GO);
-        validCommands.put("quit", Option.QUIT);
-        validCommands.put("help", Option.HELP);
-        validCommands.put("look", Option.LOOK);
-        validCommands.put("eat", Option.EAT);
-        validCommands.put("back", Option.BACK);
-        validCommands.put("items", Option.ITEMS);
-        validCommands.put("take", Option.TAKE);
-        validCommands.put("drop", Option.DROP);
     }
 
     /**
@@ -39,7 +28,15 @@ public class CommandWords
      */
     public boolean isCommand(String aString)
     {
-        return (validCommands.get(aString) != null);
+        boolean isCommand = false;
+        for (Option option : Option.values()) {
+            if (option != Option.UNKNOWN) {                
+                if (option.getString().equals(aString)) {
+                    isCommand = true;
+                }
+            }
+        }
+        return isCommand;
     }
 
     /**
@@ -47,8 +44,8 @@ public class CommandWords
      */    
     public void showAll()
     {
-        for (String command : validCommands.keySet()) {
-            System.out.print(command + " ");
+        for (Option option : Option.values()) {
+            System.out.print(option.getString() + " ");
         }
         System.out.println();
     }
@@ -61,13 +58,15 @@ public class CommandWords
      */
     public Option getCommandWord(String commandWord)    
     {
-        Option returnedCommandWord = null;
-        if (isCommand(commandWord)) {
-            returnedCommandWord = validCommands.get(commandWord);
-        } else {
-            returnedCommandWord = Option.UNKNOWN;
+        Option returnedOption = Option.UNKNOWN;
+        for (Option option : Option.values()) {
+            if (option != Option.UNKNOWN) {
+                if (option.getString().equals(commandWord)) {
+                    returnedOption = option;
+                }
+            }
         }
-        return returnedCommandWord;          
+        return returnedOption;                 
     }
     
 }

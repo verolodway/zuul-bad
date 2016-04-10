@@ -34,23 +34,25 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
+        Room entrada, bsk, pimkie, stradivarius, pullAndBear, lefties;
       
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        entrada = new Room("frente a la puerta principal del centro comercial...");
+        bsk = new Room("en BSK, primera tienda que se encuentra  a su izquierda, parece ordenada, sin ningún tipo de daño... ¿qué esconde? ¿y dónde?");
+        pimkie = new Room("en Pimkie, primera tienda que se encuentra a su derecha, pequeña pero muy revuelta, malas sensaciones...");
+        stradivarius = new Room("en Stradivarius, situada en el centro del centro comercial, estás muy dentro...");
+        pullAndBear = new Room("en Pull & Bear, situada al sur oeste, esos maniquíes parecen defectuosos...");
+        lefties = new Room("en Lefties, al sur este, aparentemente la única tienda con aspecto de tienda...");
         
         // initialise room exits
-        outside.setExits(null, theater, lab, pub);
-        theater.setExits(null, null, null, outside);
-        pub.setExits(null, outside, null, null);
-        lab.setExits(outside, office, null, null);
-        office.setExits(null, null, null, lab);
+        entrada.setExits(null, bsk, stradivarius, pimkie);
+        bsk.setExits(null, null, null, entrada);
+        pimkie.setExits(null, entrada, null, null);
+        stradivarius.setExits(entrada, lefties, null, pullAndBear);
+        pullAndBear.setExits(null, stradivarius, null, null);
+        lefties.setExits(null, null, null, stradivarius);
 
-        currentRoom = outside;  // start game outside
+        currentRoom = entrada;  // start game outside
     }
 
     /**

@@ -15,11 +15,11 @@
 public class Room 
 {
     public String description;
-    public Room northExit;
-    public Room southExit;
-    public Room eastExit;
-    public Room westExit;
-    public Room southEastExit;
+    private Room northExit;
+    private Room southExit;
+    private Room eastExit;
+    private Room westExit;
+    private Room southEastExit;
 
     /**
      * Create a room described "description". Initially, it has
@@ -61,5 +61,53 @@ public class Room
     {
         return description;
     }
-
+    
+    /**
+     * Método que nos da la salida de cada habitación
+     */
+    public Room getExit(String direccion){
+        Room salida = null;
+        if (direccion.equals("north")){
+            salida = northExit;
+        }
+        else if(direccion.equals("south")){
+            salida = southExit;
+        }
+        else if(direccion.equals("west")){
+            salida = westExit; 
+        }
+        else if(direccion.equals("east")){
+            salida = eastExit;
+        }
+        else if(direccion.equals("southEast")){
+            salida = southEastExit;
+        }
+        return salida;
+    }
+    
+    /**
+      * Return a description of the room's exits.
+      * For example: "Exits: north east west"
+      *
+      * @ return A description of the available exits.
+      */
+     public String getExitString(){
+            String salida = " ";
+            if(northExit != null) {
+                System.out.print("north ");
+            }
+            if(eastExit != null) {
+                System.out.print("east ");
+            }
+            if(southExit != null) {
+                System.out.print("south ");
+            }
+            if(westExit != null) {
+                System.out.print("west ");
+            }
+            if(southEastExit != null){
+                System.out.print("south-east ");
+            }
+            return salida;
+        }
 }

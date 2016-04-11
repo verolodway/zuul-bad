@@ -19,7 +19,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-        
+
     /**
      * Create the game and initialise its internal map.
      */
@@ -35,7 +35,7 @@ public class Game
     private void createRooms()
     {
         Room entrada, bsk, pimkie, stradivarius, pullAndBear, lefties;
-      
+
         // create the rooms
         entrada = new Room("frente a la puerta principal del centro comercial...");
         bsk = new Room("en BSK, primera tienda que se encuentra  a su izquierda, parece ordenada, sin ningún tipo de daño... ¿qué esconde? ¿y dónde?");
@@ -43,7 +43,7 @@ public class Game
         stradivarius = new Room("en Stradivarius, situada en el centro del centro comercial, estás muy dentro...");
         pullAndBear = new Room("en Pull & Bear, situada al sur oeste, esos maniquíes parecen defectuosos...");
         lefties = new Room("en Lefties, al sur este, aparentemente la única tienda con aspecto de tienda...");
-        
+
         // initialise room exits
         entrada.setExits(null, bsk, stradivarius, pimkie);
         bsk.setExits(null, null, null, entrada);
@@ -64,7 +64,7 @@ public class Game
 
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
-                
+
         boolean finished = false;
         while (! finished) {
             Command command = parser.getCommand();
@@ -147,7 +147,7 @@ public class Game
         String direction = command.getSecondWord();
 
         // Try to leave current room.
-        
+
         Room nextRoom = null;
         if(direction.equals("north")) {
             nextRoom = currentRoom.northExit;
@@ -185,28 +185,27 @@ public class Game
             return true;  // signal that we want to quit
         }
     }
-    
+
     /**
      * Método que nos proporciona información de cada habitación.
      */
     public void printLocationInfo(){
-        
         Room nextRoom = null;
         currentRoom = nextRoom;
         System.out.println("You are " + currentRoom.getDescription());
         System.out.print("Exits: ");
-            if(currentRoom.northExit != null) {
-                System.out.print("north ");
-            }
-            if(currentRoom.eastExit != null) {
-                System.out.print("east ");
-            }
-            if(currentRoom.southExit != null) {
-                System.out.print("south ");
-            }
-            if(currentRoom.westExit != null) {
-                System.out.print("west ");
-            }
-            System.out.println();
+        if(currentRoom.northExit != null) {
+            System.out.print("north ");
+        }
+        if(currentRoom.eastExit != null) {
+            System.out.print("east ");
+        }
+        if(currentRoom.southExit != null) {
+            System.out.print("south ");
+        }
+        if(currentRoom.westExit != null) {
+            System.out.print("west ");
+        }
+        System.out.println();
     }
 }

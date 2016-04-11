@@ -1,4 +1,5 @@
 /**
+ *
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
  *  can walk around some scenery. That's all. It should really be extended 
@@ -11,7 +12,7 @@
  *  rooms, creates the parser and starts the game.  It also evaluates and
  *  executes the commands that the parser returns.
  * 
- * @author  Michael KÃ¶lling and David J. Barnes
+ * @author  Michael Kölling and David J. Barnes
  * @version 2011.07.31
  */
 
@@ -34,26 +35,28 @@ public class Game
      */
     private void createRooms()
     {
-        Room entrada, bsk, pimkie, stradivarius, pullAndBear, lefties;
+        Room entrada, bsk, pimkie, stradivarius, pullAndBear, lefties, pasadizo;
 
-        // create the rooms
+        // create the rooms		         
         entrada = new Room("frente a la puerta principal del centro comercial...");
         bsk = new Room("en BSK, primera tienda que se encuentra  a su izquierda, parece ordenada, sin ningún tipo de daño... ¿qué esconde? ¿y dónde?");
         pimkie = new Room("en Pimkie, primera tienda que se encuentra a su derecha, pequeña pero muy revuelta, malas sensaciones...");
         stradivarius = new Room("en Stradivarius, situada en el centro del centro comercial, estás muy dentro...");
         pullAndBear = new Room("en Pull & Bear, situada al sur oeste, esos maniquíes parecen defectuosos...");
         lefties = new Room("en Lefties, al sur este, aparentemente la única tienda con aspecto de tienda...");
+        pasadizo = new Room("en un pasadizo, ¡Has encontrado un pasadizo!");
 
         // initialise room exits
-        entrada.setExits(null, bsk, stradivarius, pimkie);
-        bsk.setExits(null, null, null, entrada);
-        pimkie.setExits(null, entrada, null, null);
-        stradivarius.setExits(entrada, lefties, null, pullAndBear);
-        pullAndBear.setExits(null, stradivarius, null, null);
-        lefties.setExits(null, null, null, stradivarius);
+        entrada.setExits(null, bsk, stradivarius, pimkie, null);
+        bsk.setExits(null, null, null, entrada, null);
+        pimkie.setExits(null, entrada, null, null, pasadizo);
+        stradivarius.setExits(entrada, lefties, null, pullAndBear, null);
+        pullAndBear.setExits(null, stradivarius, null, null, null);
+        lefties.setExits(null, null, null, stradivarius, null);
+        pasadizo.setExits(pimkie, null, null, null, stradivarius);
 
         currentRoom = entrada;  // start game outside
-    }
+    }		      
 
     /**
      *  Main play routine.  Loops until end of play.
@@ -86,6 +89,7 @@ public class Game
         System.out.println("You are " + currentRoom.getDescription());
         System.out.print("Exits: ");
         printLocationInfo();
+        System.out.println();
     }
 
     /**
@@ -147,7 +151,6 @@ public class Game
         String direction = command.getSecondWord();
 
         // Try to leave current room.
-
         Room nextRoom = null;
         if(direction.equals("north")) {
             nextRoom = currentRoom.northExit;
@@ -161,12 +164,20 @@ public class Game
         if(direction.equals("west")) {
             nextRoom = currentRoom.westExit;
         }
+        if(direction.equals("southEast")){
+            nextRoom = currentRoom.southEastExit;
+        }
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
         else {
+            currentRoom = nextRoom;
+            System.out.println("You are " + currentRoom.getDescription());
+            System.out.print("Exits: ");
             printLocationInfo();
+            
+            System.out.println();
         }
     }
 
@@ -185,27 +196,25 @@ public class Game
             return true;  // signal that we want to quit
         }
     }
-
+    
     /**
-     * Método que nos proporciona información de cada habitación.
+     * Método que nos permite saber la localización de la habitación
      */
     public void printLocationInfo(){
-        Room nextRoom = null;
-        currentRoom = nextRoom;
-        System.out.println("You are " + currentRoom.getDescription());
-        System.out.print("Exits: ");
         if(currentRoom.northExit != null) {
-            System.out.print("north ");
-        }
+                System.out.print("north ");
+            }
         if(currentRoom.eastExit != null) {
-            System.out.print("east ");
-        }
+                System.out.print("east ");
+            }
         if(currentRoom.southExit != null) {
-            System.out.print("south ");
-        }
+                System.out.print("south ");
+            }
         if(currentRoom.westExit != null) {
-            System.out.print("west ");
+                System.out.print("west ");
+            }
+        if(currentRoom.southEastExit != null){
+            System.out.println("south east");
         }
-        System.out.println();
     }
 }

@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Set;
 /**
  * Class Room - a room in an adventure game.
  *
@@ -28,29 +29,9 @@ public class Room
         this.description = description;
         exits = new HashMap<>();
     }
-
-    /**
-     * Define the exits of this room.  Every direction either leads
-     * to another room or is null (no exit there).
-     * @param north The north exit.
-     * @param east The east east.
-     * @param south The south exit.
-     * @param west The west exit.
-     */
-    public void setExits(Room north, Room east, Room south, Room west, Room southEast, Room northWest) 
-    {
-        if(north != null)
-            exits.put("north", north);
-        if(east != null)
-            exits.put("east", east);
-        if(south != null)
-            exits.put("south", south);
-        if(west != null)
-            exits.put("west", west);
-        if(southEast != null)
-            exits.put("southEast", southEast);
-        if(northWest != null)
-            exits.put("northWest", northWest);
+    
+    public void setExit(String direccion, Room habitacion){
+        exits.put(direccion, habitacion);
     }
 
     /**
@@ -94,25 +75,11 @@ public class Room
       * @ return A description of the available exits.
       */
      public String getExitString(){
-            String salida = " ";
-            if(exits.get("north") != null) {
-                System.out.print("north ");
+            Set<String> direcciones = exits.keySet();
+            String salidas = "Exits: ";
+            for (String direccion : direcciones){
+                salidas += direccion + " ";
             }
-            if(exits.get("east") != null) {
-                System.out.print("east ");
-            }
-            if(exits.get("south") != null) {
-                System.out.print("south ");
-            }
-            if(exits.get("west") != null) {
-                System.out.print("west ");
-            }
-            if(exits.get("south-east") != null){
-                System.out.print("south-east ");
-            }
-            if(exits.get("north-west") != null){
-                System.out.print("north-west");
-            }
-            return salida;
+            return salidas;
         }
 }

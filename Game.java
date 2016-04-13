@@ -47,14 +47,21 @@ public class Game
         pasadizo = new Room("en un pasadizo, ¡Has encontrado un pasadizo!");
 
         // initialise room exits
-        entrada.setExits(null, bsk, stradivarius, pimkie, null, null);
-        bsk.setExits(null, null, null, entrada, null, null);
-        pimkie.setExits(null, entrada, null, null, pasadizo, null);
-        stradivarius.setExits(entrada, lefties, null, pullAndBear, null, pasadizo);
-        pullAndBear.setExits(null, stradivarius, null, null, null, null);
-        lefties.setExits(null, null, null, stradivarius, null, null);
-        pasadizo.setExits(null, null, null, null, stradivarius, pimkie);
-
+        entrada.setExit("east", bsk);
+        entrada.setExit("west", pimkie);
+        entrada.setExit("south", stradivarius);
+        bsk.setExit("west", entrada);
+        pimkie.setExit("east", entrada);
+        pimkie.setExit("south-east", pasadizo);
+        stradivarius.setExit("north", entrada);
+        stradivarius.setExit("east", lefties);
+        stradivarius.setExit("west", pullAndBear);
+        stradivarius.setExit("north-west", pasadizo);
+        pullAndBear.setExit("east", stradivarius);
+        lefties.setExit("west", stradivarius);
+        pasadizo.setExit("south-east", stradivarius);
+        pasadizo.setExit("north-west", pimkie);
+     
         currentRoom = entrada;  // start game outside
     }		      
 
@@ -180,8 +187,7 @@ public class Game
      * Método que nos permite saber la localización de la habitación
      */
     public void printLocationInfo(){
-        System.out.println("You are " + currentRoom.getDescription());
-        System.out.print("Exits: ");
+        System.out.println(currentRoom.getLongDescription());
         System.out.println(currentRoom.getExitString());
 
     }

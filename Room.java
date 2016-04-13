@@ -29,7 +29,7 @@ public class Room
         this.description = description;
         exits = new HashMap<>();
     }
-    
+
     public void setExit(String direccion, Room habitacion){
         exits.put(direccion, habitacion);
     }
@@ -41,7 +41,7 @@ public class Room
     {
         return description;
     }
-    
+
     /**
      * Método que nos da la salida de cada habitación
      */
@@ -67,19 +67,29 @@ public class Room
         }
         return salida;
     }
-    
+
     /**
-      * Return a description of the room's exits.
-      * For example: "Exits: north east west"
-      *
-      * @ return A description of the available exits.
-      */
-     public String getExitString(){
-            Set<String> direcciones = exits.keySet();
-            String salidas = "Exits: ";
-            for (String direccion : direcciones){
-                salidas += direccion + " ";
-            }
-            return salidas;
+     * Return a description of the room's exits.
+     * For example: "Exits: north east west"
+     *
+     * @ return A description of the available exits.
+     */
+    public String getExitString(){
+        Set<String> direcciones = exits.keySet();
+        String salidas = "Exits: ";
+        for (String direccion : direcciones){
+            salidas += direccion + " ";
         }
+        return salidas;
+    }
+
+    /**
+     * Return a long description of this room, of the form:
+     *     You are in the 'name of room'
+     *     Exits: north west southwest
+     * @return A description of the room, including exits.
+     */
+    public String getLongDescription(){
+        return "You are " + getDescription() + "\n" + getExitString();
+    }    
 }

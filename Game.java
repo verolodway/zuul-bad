@@ -85,8 +85,7 @@ public class Game
         System.out.println("Welcome to the World of Zuul!");
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
-        System.out.println("You are "); printLocationInfo();
-        System.out.println();
+        printLocationInfo();
     }
 
     /**
@@ -156,10 +155,7 @@ public class Game
         }
         else {
             currentRoom = nextRoom;
-            System.out.println("You are " + currentRoom.getDescription());
-            System.out.print("Exits: ");
             printLocationInfo();
-            
             System.out.println();
         }
     }
@@ -184,8 +180,8 @@ public class Game
      * Método que nos permite saber la localización de la habitación
      */
     public void printLocationInfo(){
-        System.out.println(currentRoom.getDescription());
-        System.out.print("Exit: ");
+        System.out.println("You are " + currentRoom.getDescription());
+        System.out.print("Exits: ");
         System.out.println(currentRoom.getExitString());
 
     }

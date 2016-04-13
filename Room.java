@@ -79,7 +79,7 @@ public class Room
         else if(direccion.equals("east")){
             salida = eastExit;
         }
-        else if(direccion.equals("southEast")){
+        else if(direccion.equals("south-east")){
             salida = southEastExit;
         }
         return salida;

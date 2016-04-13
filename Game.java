@@ -47,13 +47,13 @@ public class Game
         pasadizo = new Room("en un pasadizo, ¡Has encontrado un pasadizo!");
 
         // initialise room exits
-        entrada.setExits(null, bsk, stradivarius, pimkie, null);
-        bsk.setExits(null, null, null, entrada, null);
-        pimkie.setExits(null, entrada, null, null, pasadizo);
-        stradivarius.setExits(entrada, lefties, null, pullAndBear, null);
-        pullAndBear.setExits(null, stradivarius, null, null, null);
-        lefties.setExits(null, null, null, stradivarius, null);
-        pasadizo.setExits(pimkie, null, null, null, stradivarius);
+        entrada.setExits(null, bsk, stradivarius, pimkie, null, null);
+        bsk.setExits(null, null, null, entrada, null, null);
+        pimkie.setExits(null, entrada, null, null, pasadizo, null);
+        stradivarius.setExits(entrada, lefties, null, pullAndBear, null, pasadizo);
+        pullAndBear.setExits(null, stradivarius, null, null, null, null);
+        lefties.setExits(null, null, null, stradivarius, null, null);
+        pasadizo.setExits(null, null, null, null, stradivarius, pimkie);
 
         currentRoom = entrada;  // start game outside
     }		      

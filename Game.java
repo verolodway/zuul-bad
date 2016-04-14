@@ -37,7 +37,7 @@ public class Game
     {
         Room entrada, bsk, pimkie, stradivarius, pullAndBear, lefties, pasadizo;
 
-        // create the rooms		         
+        // create the rooms              
         entrada = new Room("frente a la puerta principal del centro comercial...");
         bsk = new Room("en BSK, primera tienda que se encuentra  a su izquierda, parece ordenada, sin ningún tipo de daño... ¿qué esconde? ¿y dónde?");
         pimkie = new Room("en Pimkie, primera tienda que se encuentra a su derecha, pequeña pero muy revuelta, malas sensaciones...");
@@ -63,7 +63,7 @@ public class Game
         pasadizo.setExit("north-west", pimkie);
      
         currentRoom = entrada;  // start game outside
-    }		      
+    }             
 
     /**
      *  Main play routine.  Loops until end of play.
@@ -119,6 +119,9 @@ public class Game
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
+        else if (commandWord.equals("look")){
+            printLocationInfo();
+        }
 
         return wantToQuit;
     }
@@ -136,9 +139,9 @@ public class Game
         System.out.println("around at the university.");
         System.out.println();
         System.out.println("Your command words are:");
-        System.out.println("   go quit help");
+        System.out.println("   go quit help look");
     }
-
+   
     /** 
      * Try to go in one direction. If there is an exit, enter
      * the new room, otherwise print an error message.
@@ -188,7 +191,5 @@ public class Game
      */
     public void printLocationInfo(){
         System.out.println(currentRoom.getLongDescription());
-        System.out.println(currentRoom.getExitString());
-
     }
 }

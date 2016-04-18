@@ -67,7 +67,7 @@ public class Parser
      * Implementar un método en la clase Parser que nos devuelva el atributo commands de dicha clase, que es de 
      * tipo CommandWords e invocar dicho método desde la clase Game.
      */
-    public CommandWords comandos(){
-        return commands;
+    public void comandos(){
+        commands.showAll();
     }
 }

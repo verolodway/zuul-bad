@@ -38,13 +38,13 @@ public class Game
         Room entrada, bsk, pimkie, stradivarius, pullAndBear, lefties, pasadizo;
 
         // create the rooms              
-        entrada = new Room("frente a la puerta principal del centro comercial...");
-        bsk = new Room("en BSK, primera tienda que se encuentra  a su izquierda, parece ordenada, sin ningún tipo de daño... ¿qué esconde? ¿y dónde?");
-        pimkie = new Room("en Pimkie, primera tienda que se encuentra a su derecha, pequeña pero muy revuelta, malas sensaciones...");
-        stradivarius = new Room("en Stradivarius, situada en el centro del centro comercial, estás muy dentro...");
-        pullAndBear = new Room("en Pull & Bear, situada al sur oeste, esos maniquíes parecen defectuosos...");
-        lefties = new Room("en Lefties, al sur este, aparentemente la única tienda con aspecto de tienda...");
-        pasadizo = new Room("en un pasadizo, ¡Has encontrado un pasadizo!");
+        entrada = new Room("frente a la puerta principal del centro comercial...", "Hay un cronómetro que pesa: ", 66.6F);
+        bsk = new Room("en BSK, primera tienda que se encuentra  a su izquierda, parece ordenada, sin ningún tipo de daño... ¿qué esconde? ¿y dónde?", "Hay un bate de madera que pesa: ", 1030.3F);
+        pimkie = new Room("en Pimkie, primera tienda que se encuentra a su derecha, pequeña pero muy revuelta, malas sensaciones...", "Hay un gatito que lleva en su collar un localizador, y pesa: ", 5040.7F);
+        stradivarius = new Room("en Stradivarius, situada en el centro del centro comercial, estás muy dentro...", "Hay un teléfono móvil, que pesa: ", 500.0F);
+        pullAndBear = new Room("en Pull & Bear, situada al sur oeste, esos maniquíes parecen defectuosos...", "Hay unas tijeras, que pesan: ", 23.5F);
+        lefties = new Room("en Lefties, al sur este, aparentemente la única tienda con aspecto de tienda...", "Hay una máscara anti-gas, que pesa: ", 850.4F);
+        pasadizo = new Room("en un pasadizo, ¡Has encontrado un pasadizo!", "Hay una llave, que pesa: ", 10.2F);
 
         // initialise room exits
         entrada.setExit("east", bsk);
@@ -121,6 +121,7 @@ public class Game
         }
         else if (commandWord.equals("look")){
             printLocationInfo();
+            currentRoom.getDescription();
         }
         else if (commandWord.equals("eat")){
             System.out.println("You have eaten now and you are not hungry any more.");

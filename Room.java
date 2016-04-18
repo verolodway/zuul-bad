@@ -18,16 +18,20 @@ public class Room
 {
     public String description;
     private HashMap<String, Room> exits;
+    private String descripcionItem;
+    private float pesoItem;
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description) 
+    public Room(String description, String descripcionItem, float pesoItem) 
     {
         this.description = description;
         exits = new HashMap<>();
+        this.descripcionItem = descripcionItem;
+        this.pesoItem = pesoItem;
     }
 
     public void setExit(String direccion, Room habitacion){
@@ -39,7 +43,7 @@ public class Room
      */
     public String getDescription()
     {
-        return description;
+        return description + " " + descripcionItem + " " + pesoItem;
     }
 
     /**

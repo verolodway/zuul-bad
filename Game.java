@@ -1,3 +1,4 @@
+import java.util.Stack;
 /**
  *
  *  This class is the main class of the "World of Zuul" application. 
@@ -20,7 +21,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-    private Room ultimaHabitacion;
+    private Stack<Room> habitacionesRecorridas;
     /**
      * Create the game and initialise its internal map.
      */
@@ -72,7 +73,7 @@ public class Game
         pasadizo.addItem(new Item("Una llave", 10.2F));
      
         currentRoom = entrada;  // start game outside
-        ultimaHabitacion = null; 
+        habitacionesRecorridas = new Stack<>();
     }             
 
     /**
@@ -137,8 +138,13 @@ public class Game
             System.out.println("You have eaten now and you are not hungry any more.");
         }
         else if(commandWord.equals("back")){
-            currentRoom = ultimaHabitacion;
-            printLocationInfo();
+            if(habitacionesRecorridas.empty()){
+                System.out.println("No puedes ir más hacia atrás.");
+            }
+            else{
+                currentRoom = habitacionesRecorridas.pop();
+                printLocationInfo();
+            }
         }
 
         return wantToQuit;
@@ -182,7 +188,7 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
-            ultimaHabitacion = currentRoom;
+            habitacionesRecorridas.push(currentRoom);
             currentRoom = nextRoom;
             printLocationInfo();
             System.out.println();

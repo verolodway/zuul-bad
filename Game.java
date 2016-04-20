@@ -20,7 +20,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-
+    private Room ultimaHabitacion;
     /**
      * Create the game and initialise its internal map.
      */
@@ -61,8 +61,18 @@ public class Game
         lefties.setExit("west", stradivarius);
         pasadizo.setExit("south-east", stradivarius);
         pasadizo.setExit("north-west", pimkie);
+        
+        //crear los ítems de cada sala
+        entrada.addItem(new Item("Un cronómetro", 66.6F));
+        bsk.addItem(new Item("Un bate de madera", 1030.3F));
+        pimkie.addItem(new Item("Un gatito que lleva en su collar un localizador", 5040.7F));
+        stradivarius.addItem(new Item("Un teléfono móvil", 500.0F));
+        pullAndBear.addItem(new Item("Unas tijeras", 23.5F));
+        lefties.addItem(new Item("Una máscara anti-gas", 850.4F));
+        pasadizo.addItem(new Item("Una llave", 10.2F));
      
         currentRoom = entrada;  // start game outside
+        ultimaHabitacion = null; 
     }             
 
     /**
@@ -126,6 +136,10 @@ public class Game
         else if (commandWord.equals("eat")){
             System.out.println("You have eaten now and you are not hungry any more.");
         }
+        else if(commandWord.equals("back")){
+            currentRoom = ultimaHabitacion;
+            printLocationInfo();
+        }
 
         return wantToQuit;
     }
@@ -168,6 +182,7 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
+            ultimaHabitacion = currentRoom;
             currentRoom = nextRoom;
             printLocationInfo();
             System.out.println();

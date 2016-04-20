@@ -85,8 +85,7 @@ public class Room
     /**
      * Método que permite añadir un Item a cada habitacion
      */
-    public void addItem(String descripcionItem, float pesoItem){
-        Item item = new Item(descripcionItem, pesoItem);
+    public void addItem(Item item){
         items.add(item);
     }
 }

@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Set;
+import java.util.ArrayList;
 /**
  * Class Room - a room in an adventure game.
  *
@@ -18,20 +19,18 @@ public class Room
 {
     public String description;
     private HashMap<String, Room> exits;
-    private String descripcionItem;
-    private float pesoItem;
+    private ArrayList<Item> items;
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description, String descripcionItem, float pesoItem) 
+    public Room(String description) 
     {
         this.description = description;
         exits = new HashMap<>();
-        this.descripcionItem = descripcionItem;
-        this.pesoItem = pesoItem;
+        items = new ArrayList<>();
     }
 
     public void setExit(String direccion, Room habitacion){
@@ -43,33 +42,14 @@ public class Room
      */
     public String getDescription()
     {
-        return description + " " + descripcionItem + " " + pesoItem;
+        return description;
     }
 
     /**
      * Método que nos da la salida de cada habitación
      */
     public Room getExit(String direccion){
-        Room salida = null;
-        if (direccion.equals("north")){
-            salida = exits.get("north");
-        }
-        else if(direccion.equals("south")){
-            salida = exits.get("south");
-        }
-        else if(direccion.equals("west")){
-            salida = exits.get("west"); 
-        }
-        else if(direccion.equals("east")){
-            salida = exits.get("east");
-        }
-        else if(direccion.equals("south-east")){
-            salida = exits.get("south-east");
-        }
-        else if(direccion.equals("north-west")){
-            salida = exits.get("north-west");
-        }
-        return salida;
+        return exits.get(direccion);
     }
 
     /**
@@ -95,5 +75,13 @@ public class Room
      */
     public String getLongDescription(){
         return "You are " + getDescription() + "\n" + getExitString();
-    }    
+    }  
+    
+    /**
+     * Método que permite añadir un Item a cada habitacion
+     */
+    public void addItem(String descripcionItem, float pesoItem){
+        Item item = new Item(descripcionItem, pesoItem);
+        items.add(item);
+    }
 }

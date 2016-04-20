@@ -33,6 +33,6 @@ public class Item
     }
     
     public String toString(){
-        return "Nombre: " + descripcionItem + " Peso: "+ pesoItem;
+        return "Nombre: " + descripcionItem + " Peso: "+ pesoItem + "kg";
     }
 }

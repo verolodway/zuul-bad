@@ -20,7 +20,7 @@ import java.util.Stack;
 public class Game 
 {
     private Parser parser;
-    private Room currentRoom;
+    private Player player;
     private Stack<Room> habitacionesRecorridas;
     /**
      * Create the game and initialise its internal map.
@@ -72,7 +72,7 @@ public class Game
         lefties.addItem(new Item("Una máscara anti-gas", 850.4F));
         pasadizo.addItem(new Item("Una llave", 10.2F));
      
-        currentRoom = entrada;  // start game outside
+        player = new Player(entrada);  // start game outside
         habitacionesRecorridas = new Stack<>();
     }             
 
@@ -132,7 +132,7 @@ public class Game
         }
         else if (commandWord.equals("look")){
             printLocationInfo();
-            currentRoom.getDescription();
+            player.getCurrentRoom().getDescription();
         }
         else if (commandWord.equals("eat")){
             System.out.println("You have eaten now and you are not hungry any more.");
@@ -142,7 +142,7 @@ public class Game
                 System.out.println("No puedes ir más hacia atrás.");
             }
             else{
-                currentRoom = habitacionesRecorridas.pop();
+                player.setCurrentRoom(habitacionesRecorridas.pop());
                 printLocationInfo();
             }
         }
@@ -181,15 +181,15 @@ public class Game
         String direction = command.getSecondWord();
 
         // Try to leave current room.
-        Room nextRoom = currentRoom.getExit(direction);
+        Room nextRoom = player.getCurrentRoom().getExit(direction);
         
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
         else {
-            habitacionesRecorridas.push(currentRoom);
-            currentRoom = nextRoom;
+            habitacionesRecorridas.push(player.getCurrentRoom());
+            player.setCurrentRoom(nextRoom);
             printLocationInfo();
             System.out.println();
         }
@@ -215,6 +215,6 @@ public class Game
      * Método que nos permite saber la localización de la habitación
      */
     public void printLocationInfo(){
-        System.out.println(currentRoom.getLongDescription());
+        System.out.println(player.getCurrentRoom().getLongDescription());
     }
 }

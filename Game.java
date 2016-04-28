@@ -21,7 +21,7 @@ public class Game
 {
     private Parser parser;
     private Player player;
-    private Stack<Room> habitacionesRecorridas;
+
     /**
      * Create the game and initialise its internal map.
      */
@@ -73,7 +73,7 @@ public class Game
         pasadizo.addItem(new Item("Una llave", 10.2F));
      
         player = new Player(entrada);  // start game outside
-        habitacionesRecorridas = new Stack<>();
+
     }             
 
     /**
@@ -138,12 +138,33 @@ public class Game
             System.out.println("You have eaten now and you are not hungry any more.");
         }
         else if(commandWord.equals("back")){
-            if(habitacionesRecorridas.empty()){
+            if(player.isEmpty()){
                 System.out.println("No puedes ir más hacia atrás.");
             }
             else{
-                player.setCurrentRoom(habitacionesRecorridas.pop());
+                player.setCurrentRoom(player.getHabitacionesRecorridas().pop());
                 printLocationInfo();
+            }
+        }
+        else if(commandWord.equals("take")){
+            if(player.getCurrentRoom().buscarItem(command.getSecondWord()) != null){
+                if(player.getPeso() > player.getPesoMaximo()){
+                    System.out.println("El jugador no puede sobrepasar los " + player.getPesoMaximo() + "g.");
+                }
+                else{
+                    player.take(player.getCurrentRoom().buscarItem(command.getSecondWord()));
+                }
+            }
+            else{
+                System.out.println("Ese item no se encuentra en la habitación");
+            }
+        }
+        else if(commandWord.equals("drop")){
+            if(player.getCurrentRoom().buscarItem(command.getSecondWord()) != null){
+                player.drop(player.getCurrentRoom().buscarItem(command.getSecondWord()));
+            }
+            else{
+                System.out.println( command.getSecondWord() + "No puedes tirar el objeto porque no lo tienes.");
             }
         }
 
@@ -188,7 +209,7 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
-            habitacionesRecorridas.push(player.getCurrentRoom());
+            player.getHabitacionesRecorridas().push(player.getCurrentRoom());
             player.setCurrentRoom(nextRoom);
             printLocationInfo();
             System.out.println();

@@ -32,6 +32,19 @@ public class Room
         exits = new HashMap<>();
         items = new ArrayList<>();
     }
+    
+    /**
+     * Método que nos imprime los items que tiene cada habitacion
+     */
+    public Item buscarItem(String item){
+        Item encontrado = null;
+        for(Item itemActual: items){
+            if(itemActual.getDescripcionItem().equals(item)){
+                encontrado = itemActual;
+            }
+        }
+        return encontrado;
+    }
 
     public void setExit(String direccion, Room habitacion){
         exits.put(direccion, habitacion);

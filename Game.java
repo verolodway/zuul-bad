@@ -64,13 +64,13 @@ public class Game
         pasadizo.setExit("north-west", pimkie);
         
         //crear los ítems de cada sala
-        entrada.addItem(new Item("Un cronómetro", 66.6F));
-        bsk.addItem(new Item("Un bate de madera", 1030.3F));
-        pimkie.addItem(new Item("Un gatito que lleva en su collar un localizador", 5040.7F));
-        stradivarius.addItem(new Item("Un teléfono móvil", 500.0F));
-        pullAndBear.addItem(new Item("Unas tijeras", 23.5F));
-        lefties.addItem(new Item("Una máscara anti-gas", 850.4F));
-        pasadizo.addItem(new Item("Una llave", 10.2F));
+        entrada.addItem(new Item("cronómetro", 66.6F));
+        bsk.addItem(new Item("bate", 1030.3F));
+        pimkie.addItem(new Item("localizador", 5040.7F));
+        stradivarius.addItem(new Item("móvil", 500.0F));
+        pullAndBear.addItem(new Item("tijeras", 23.5F));
+        lefties.addItem(new Item("máscara", 850.4F));
+        pasadizo.addItem(new Item("llave", 10.2F));
      
         player = new Player(entrada);  // start game outside
 
@@ -166,6 +166,9 @@ public class Game
             else{
                 System.out.println( command.getSecondWord() + "No puedes tirar el objeto porque no lo tienes.");
             }
+        }
+        else if(commandWord.equals("items")){
+            player.showItems();
         }
 
         return wantToQuit;

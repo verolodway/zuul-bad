@@ -88,11 +88,11 @@ public class Room
      */
     public String getLongDescription(){
         String descripcion = "You are " + description + "\n" + getExitString() + "\n";
-        descripcion += "There are" + items.size() + "items: \n";
+        descripcion += "There are " + items.size() + " items: \n";
         for(Item item : items){
             descripcion += " " + item.toString() + "\n";
         }
-        return "You are " + getDescription() + "\n" + getExitString();
+        return descripcion;
     }  
     
     /**

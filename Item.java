@@ -1,4 +1,3 @@
-
 /**
  * Write a description of class Item here.
  * 
@@ -36,3 +35,4 @@ public class Item
         return "Nombre: " + descripcionItem + " Peso: "+ pesoItem + "kg";
     }
 }
+

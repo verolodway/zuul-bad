@@ -32,6 +32,20 @@ public class Player
     }
     
     /**
+     * Método que nos permite añadir items al Array 
+     */
+    public void addItem(Item item){
+        items.add(item);
+    }
+    
+    /**
+     * Método que devuelve los items
+     */
+    public ArrayList<Item> verItems(){
+        return items;
+    }
+    
+    /**
      * Método que devuelve las habitaciones recorridas
      */
     public Stack<Room> getHabitacionesRecorridas(){
@@ -63,25 +77,23 @@ public class Player
      * Método que muestra todos los items que tiene el jugador
      */
     public void showItems(){
-        for (Item items : items){
-            System.out.println(items);
+        for (Item obj : items){
+            System.out.println("Nombre: " + obj.getDescripcionItem() + "\n" + "Peso: " + obj.getPesoItem());
         }
-    }
-    
-    /**
-     * Método que le permite al jugador coger items de una sala
-     */
-    public void take(Item item){
-        items.add(item);
-        peso += item.getPesoItem();
     }
     
     /**
      * Método que le permite al jugador deshacerse de un item en una sala
      */
     public void drop(Item item){
-        items.remove(item);
-        peso = peso - item.getPesoItem();
+        String command = item.getDescripcionItem();
+        if(getCurrentRoom().buscarItem(command) != null){
+                items.remove(item);
+                peso = peso - item.getPesoItem();
+            }
+            else{
+                System.out.println(command + "No puedes tirar el objeto porque no lo tienes.");
+            }
     }
     
     /**
@@ -92,9 +104,20 @@ public class Player
         if(habitacionesRecorridas.empty()){
             vacia = true;
         }
-        else{
-
-        }
         return vacia;
     }
+    
+    /**
+     * Método que nos devuelve un ítem a patir de su descripción
+     */
+    public Item getItem(String description){
+        Item objeto = null;
+        for (Item item: items){
+            if(item.getDescripcionItem().equals(description)){
+                objeto = item;
+            }
+        }
+        return objeto;
+    }
+    
 }

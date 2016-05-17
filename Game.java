@@ -64,13 +64,13 @@ public class Game
         pasadizo.setExit("north-west", pimkie);
         
         //crear los ítems de cada sala
-        entrada.addItem(new Item("cronómetro", 66.6F));
-        bsk.addItem(new Item("bate", 1030.3F));
-        pimkie.addItem(new Item("localizador", 5040.7F));
-        stradivarius.addItem(new Item("móvil", 500.0F));
-        pullAndBear.addItem(new Item("tijeras", 23.5F));
-        lefties.addItem(new Item("máscara", 850.4F));
-        pasadizo.addItem(new Item("llave", 10.2F));
+        entrada.addItem(new Item("cronómetro", 66.6F, true));
+        bsk.addItem(new Item("bate", 1030.3F, true));
+        pimkie.addItem(new Item("localizador", 5040.7F, false));
+        stradivarius.addItem(new Item("móvil", 500.0F, true));
+        pullAndBear.addItem(new Item("tijeras", 23.5F, false));
+        lefties.addItem(new Item("máscara", 850.4F, true));
+        pasadizo.addItem(new Item("llave", 10.2F, true));
      
         player = new Player(entrada);  // start game outside
 
@@ -121,6 +121,7 @@ public class Game
         }
 
         String commandWord = command.getCommandWord();
+        
         if (commandWord.equals("help")) {
             printHelp();
         }
@@ -138,34 +139,13 @@ public class Game
             System.out.println("You have eaten now and you are not hungry any more.");
         }
         else if(commandWord.equals("back")){
-            if(player.isEmpty()){
-                System.out.println("No puedes ir más hacia atrás.");
-            }
-            else{
-                player.setCurrentRoom(player.getHabitacionesRecorridas().pop());
-                printLocationInfo();
-            }
+            back();
         }
         else if(commandWord.equals("take")){
-            if(player.getCurrentRoom().buscarItem(command.getSecondWord()) != null){
-                if(player.getPeso() > player.getPesoMaximo()){
-                    System.out.println("El jugador no puede sobrepasar los " + player.getPesoMaximo() + "g.");
-                }
-                else{
-                    player.take(player.getCurrentRoom().buscarItem(command.getSecondWord()));
-                }
-            }
-            else{
-                System.out.println("Ese item no se encuentra en la habitación");
-            }
+            cogerItem(command.getSecondWord());
         }
         else if(commandWord.equals("drop")){
-            if(player.getCurrentRoom().buscarItem(command.getSecondWord()) != null){
-                player.drop(player.getCurrentRoom().buscarItem(command.getSecondWord()));
-            }
-            else{
-                System.out.println( command.getSecondWord() + "No puedes tirar el objeto porque no lo tienes.");
-            }
+            soltarItem(command);
         }
         else if(commandWord.equals("items")){
             player.showItems();
@@ -189,7 +169,59 @@ public class Game
         System.out.println("Your command words are:");
         parser.comandos();
     }
-   
+    
+    /**
+     * método que le permite al jugador soltar items
+     */
+    public void soltarItem(Command command){
+        if(player.getCurrentRoom().buscarItem(command.getSecondWord()) != null){
+                player.drop(player.getCurrentRoom().buscarItem(command.getSecondWord()));
+            }
+            else{
+                System.out.println( command.getSecondWord() + "No puedes tirar el objeto porque no lo tienes.");
+            }
+    }
+    
+    /**
+    * Método que le permite al jugador volver atrás
+    */
+    public void back(){
+        if(player.isEmpty()){
+                System.out.println("No puedes ir más hacia atrás.");
+            }
+            else{
+                player.setCurrentRoom(player.getHabitacionesRecorridas().pop());
+                printLocationInfo();
+            }
+    }
+    
+    /**
+     * Método que le permite al jugador coger un ítem
+     */
+    public void cogerItem(String objeto){
+        Item item = player.getCurrentRoom().buscarItem(objeto);
+        float peso = player.getPeso();
+        if(item != null){
+            if(item.getSePuedeCoger()){
+                peso += item.getPesoItem();
+                if(peso < player.getPesoMaximo()){
+                    player.addItem(item);
+                    player.getCurrentRoom().removeItem(item);
+                }
+                else{
+                    System.out.println("No puedes coger este ítem porque sobrepasas tu peso máximo permitido.");
+                    peso = player.getPeso() - item.getPesoItem();
+                }
+            }
+            else{
+                System.out.println("El ítem introducido no puede ser cogido por el usuario.");
+            }
+        }
+        else{
+            System.out.println("El ítem introducido no se encuentra en la sala.");
+        }
+    }
+    
     /** 
      * Try to go in one direction. If there is an exit, enter
      * the new room, otherwise print an error message.

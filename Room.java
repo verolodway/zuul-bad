@@ -101,4 +101,11 @@ public class Room
     public void addItem(Item item){
         items.add(item);
     }
+    
+    /**
+     * Método que permite eliminar un ítem de la habitación
+     */
+    public void removeItem(Item item){
+        items.remove(item);
+    }
 }

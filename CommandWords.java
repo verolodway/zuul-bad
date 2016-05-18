@@ -1,4 +1,4 @@
-import java.util.HashMap;
+import java.util.ArrayList;
 /**
  * This class is part of the "World of Zuul" application. 
  * "World of Zuul" is a very simple, text based adventure game.  
@@ -13,23 +13,13 @@ import java.util.HashMap;
 public class CommandWords
 {
     // a constant array that holds all valid command words
-    private HashMap<String, Option> validCommands;
+    private Option[] validCommands;
     /**
      * Constructor - initialise the command words.
      */
     public CommandWords()
     {
-        validCommands = new HashMap<>();
-        validCommands.put("go", Option.GO);
-        validCommands.put("quit", Option.QUIT);
-        validCommands.put("eat", Option.EAT);
-        validCommands.put("look", Option.LOOK);
-        validCommands.put("help", Option.HELP);
-        validCommands.put("back", Option.BACK);
-        validCommands.put("take", Option.TAKE);
-        validCommands.put("drop", Option.DROP);
-        validCommands.put("items", Option.ITEMS);
-        validCommands.put("unknow", Option.UNKNOW);
+        validCommands = Option.values();
     }
 
     /**
@@ -39,14 +29,24 @@ public class CommandWords
      */
     public boolean isCommand(String aString)
     {
-        return validCommands.containsKey(aString);
+        boolean comando = false;
+        for(int i = 0; i < validCommands.length; i++){
+            if(validCommands[i].getString().equals(aString)){
+                comando = true;
+            }
+        }
+        return comando;
     }
     
     /**
      * Print all valid commands to System.out
      */
     public void showAll(){
-        System.out.println(validCommands.keySet());
+        String comandos = new String();
+        for(int i = 0; i < validCommands.length; i++){
+            comandos = comandos + validCommands[i].getString() + " ";
+        }
+        System.out.println(comandos);
     }
     
      /**
@@ -57,8 +57,10 @@ public class CommandWords
      */
     public Option getCommandWord(String commandWord){
         Option command = Option.UNKNOW;
-        if(isCommand(commandWord)){
-            command = validCommands.get(commandWord);
+        for(int i = 0; i < validCommands.length; i++){
+            if(validCommands[i].getString().equals(commandWord)){
+                command = validCommands[i];
+            }
         }
         return command;
     }

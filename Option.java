@@ -7,5 +7,15 @@
  */
 public enum Option
 {
-    GO, BACK, QUIT, HELP, LOOK, EAT, TAKE, DROP, ITEMS, UNKNOW
+    GO("go"), BACK("back"), QUIT("quit"), HELP("help"), LOOK("look"), EAT("eat"), TAKE("take"), DROP("drop"), ITEMS("items"), UNKNOW("unknow");
+    
+    private String optionString;
+    
+    Option(String cadena){
+        optionString = cadena;
+    }
+    
+    public String getString(){
+        return optionString;
+    }
 }

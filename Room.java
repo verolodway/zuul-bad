@@ -34,7 +34,7 @@ public class Room
     }
     
     /**
-     * Método que nos imprime los items que tiene cada habitacion
+     * Método que nos da los items que tiene cada habitacion
      */
     public Item buscarItem(String item){
         Item encontrado = null;

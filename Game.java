@@ -1,4 +1,5 @@
 import java.util.Stack;
+import java.util.ArrayList;
 /**
  *
  *  This class is the main class of the "World of Zuul" application. 
@@ -21,6 +22,7 @@ public class Game
 {
     private Parser parser;
     private Player player;
+    private int contadorDeEnemigos;
 
     /**
      * Create the game and initialise its internal map.
@@ -29,6 +31,7 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+        contadorDeEnemigos = 0;
     }
 
     /**
@@ -62,20 +65,25 @@ public class Game
         lefties.setExit("west", stradivarius);
         pasadizo.setExit("south-east", stradivarius);
         pasadizo.setExit("north-west", pimkie);
-        
+
         //crear los ítems de cada sala
         entrada.addItem(new Item("cronómetro", 66.6F, true));
+        entrada.addItem(new Item("libro", 80.5F, true));
+        entrada.addItem(new Item("coche", 54000.6F, false));
         bsk.addItem(new Item("bate", 1030.3F, true));
-        pimkie.addItem(new Item("localizador", 5040.7F, false));
+        bsk.addItem(new Item("reloj", 45.53F, true));
+        pimkie.addItem(new Item("localizador", 5040.7F, true));
+        pimkie.addItem(new Item("carrito", 1000.7F, true));
+        pimkie.addItem(new Item("ordenador", 5900.7F, false));
+        pimkie.addItem(new Item("carpeta-privada", 50.7F, false));
         stradivarius.addItem(new Item("móvil", 500.0F, true));
-        pullAndBear.addItem(new Item("tijeras", 23.5F, false));
+        stradivarius.addItem(new Item("escalera", 760.0F, true));
+        pullAndBear.addItem(new Item("tijeras", 23.5F, true));
         lefties.addItem(new Item("máscara", 850.4F, true));
-        pasadizo.addItem(new Item("llave", 10.2F, true));
-     
+        lefties.addItem(new Item("espejo", 320.4F, true));
+
         player = new Player(entrada);  // start game outside
-
     }             
-
     /**
      *  Main play routine.  Loops until end of play.
      */
@@ -121,35 +129,35 @@ public class Game
         }
 
         Option commandWord = command.getCommandWord();
-        
+
         switch(commandWord){
             case HELP:
-                printHelp();
+            printHelp();
             break;    
             case GO :
-                goRoom(command);
+            goRoom(command);
             break;
             case QUIT :
-                wantToQuit = quit(command);
+            wantToQuit = quit(command);
             break;
             case LOOK:
-                printLocationInfo();
-                player.getCurrentRoom().getDescription();
+            printLocationInfo();
+            player.getCurrentRoom().getDescription();
             break;
             case EAT:
-                System.out.println("You have eaten now and you are not hungry any more.");
+            System.out.println("You have eaten now and you are not hungry any more.");
             break;
             case BACK:
-                back();
+            back();
             break;
             case TAKE:
-                cogerItem(command.getSecondWord());
+            cogerItem(command.getSecondWord());
             break;
             case DROP:
-                soltarItem(command);
+            soltarItem(command);
             break;
             case ITEMS :
-                player.showItems();
+            player.showItems();
             break;
         }
         return wantToQuit;
@@ -170,32 +178,33 @@ public class Game
         System.out.println("Your command words are:");
         parser.comandos();
     }
-    
+
     /**
      * método que le permite al jugador soltar items
      */
     public void soltarItem(Command command){
-        if(player.getCurrentRoom().buscarItem(command.getSecondWord()) != null){
-                player.drop(player.getCurrentRoom().buscarItem(command.getSecondWord()));
-            }
-            else{
-                System.out.println( command.getSecondWord() + "No puedes tirar el objeto porque no lo tienes.");
-            }
+        Item dejar = player.getItem(command.getSecondWord());
+        if (dejar == null){
+            System.out.println("No puedes dejar el ítem porque no lo tienes.");
+        }
+        else{
+            player.getCurrentRoom().addItem(dejar);
+        }
     }
-    
+
     /**
-    * Método que le permite al jugador volver atrás
-    */
+     * Método que le permite al jugador volver atrás
+     */
     public void back(){
         if(player.isEmpty()){
-                System.out.println("No puedes ir más hacia atrás.");
-            }
-            else{
-                player.setCurrentRoom(player.getHabitacionesRecorridas().pop());
-                printLocationInfo();
-            }
+            System.out.println("No puedes ir más hacia atrás.");
+        }
+        else{
+            player.setCurrentRoom(player.getHabitacionesRecorridas().pop());
+            printLocationInfo();
+        }
     }
-    
+
     /**
      * Método que le permite al jugador coger un ítem
      */
@@ -221,8 +230,51 @@ public class Game
         else{
             System.out.println("El ítem introducido no se encuentra en la sala.");
         }
+        if(player.itemsNecesarios()){
+            //Aparece una llave en la habitación actual del jugador.
+            player.getCurrentRoom().addItem(new Item("llave", 10.2F, true));
+            System.out.println("Has desbloqueado la llave que abre la puerta del centro comercial, puedes recogerla.");
+            alarma();
+        }
+    }
+
+    /**
+     * Método que activa la alarma y hace que aparezca el primer enemigo 
+     */
+    public boolean alarma(){
+        boolean activada = false;
+        int contador = 0;
+        ArrayList<Item> itemsJugador = player.verItems();
+        for(Item obj: itemsJugador){
+            if(obj.getDescripcionItem().equals("llave")){
+                activada = true;
+                System.out.println("------------------------------------\n ALARMA ACTIVADA \n------------------------------------\n");
+                System.out.println("Te has encontrado con un enemigo en la sala.");
+            }
+        }
+        return activada;
+    }
+
+    /**
+     * Método que cuenta los enemigos que hay y hace aparecer uno nuevo por cada habitacion
+     */
+    public void enemigos(){
+        if (alarma()){
+            contadorDeEnemigos++;
+            if(contadorDeEnemigos == 5){
+                System.out.println("Lo siento, no has llegado a tiempo a la puerta principal para escapar. \n Tal vez la próxima vez...\n"); 
+                System.out.println("------------------\n GAME OVER\n ------------------\n");
+                
+            }
+        }
+        
     }
     
+    /**
+     * Método que hace luchar al jugador contra los enemigos
+     */
+    public void patata(){}
+
     /** 
      * Try to go in one direction. If there is an exit, enter
      * the new room, otherwise print an error message.
@@ -239,7 +291,6 @@ public class Game
 
         // Try to leave current room.
         Room nextRoom = player.getCurrentRoom().getExit(direction);
-        
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
@@ -250,6 +301,8 @@ public class Game
             printLocationInfo();
             System.out.println();
         }
+
+        
     }
 
     /** 
@@ -267,7 +320,7 @@ public class Game
             return true;  // signal that we want to quit
         }
     }
-    
+
     /**
      * Método que nos permite saber la localización de la habitación
      */

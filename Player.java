@@ -132,5 +132,20 @@ public class Player
         }
         return necesarios;        
     }
-
+    
+    /**
+     * Método que comprueba si tienes la llave.
+     */
+    public boolean tieneLlave(){
+        int contador = 0;
+        boolean stop = false;
+        while(!stop){
+            if(items.get(contador).getDescripcionItem().equals("llave")){
+                stop = true;
+            }
+            contador++;
+        }
+        return stop;
+    }
+    
 }

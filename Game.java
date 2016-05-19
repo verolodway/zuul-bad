@@ -1,5 +1,6 @@
 import java.util.Stack;
 import java.util.ArrayList;
+import java.util.Random;
 /**
  *
  *  This class is the main class of the "World of Zuul" application. 
@@ -136,6 +137,8 @@ public class Game
             break;    
             case GO :
             goRoom(command);
+            wantToQuit = enemigos();
+            wantToQuit = hasGanado();
             break;
             case QUIT :
             wantToQuit = quit(command);
@@ -149,12 +152,14 @@ public class Game
             break;
             case BACK:
             back();
+            wantToQuit = enemigos();
             break;
             case TAKE:
             cogerItem(command.getSecondWord());
             break;
             case DROP:
             soltarItem(command);
+            wantToQuit = hasGanado();
             break;
             case ITEMS :
             player.showItems();
@@ -184,12 +189,26 @@ public class Game
      */
     public void soltarItem(Command command){
         Item dejar = player.getItem(command.getSecondWord());
-        if (dejar == null){
-            System.out.println("No puedes dejar el ítem porque no lo tienes.");
+        
+        if(contadorDeEnemigos > 0){
+            Random rnd = new Random();
+            if(rnd.nextInt() % 2 == 0){
+                contadorDeEnemigos--;
+                System.out.println("Has eliminado a un enemigo.");
+            }
+            else{
+                System.out.println("Has fallado y pierdes el item. srry!!");
+            }
         }
         else{
-            player.getCurrentRoom().addItem(dejar);
+            if (dejar == null){
+                System.out.println("No puedes dejar el ítem porque no lo tienes.");
+            }
+            else{
+                player.getCurrentRoom().addItem(dejar);
+            }
         }
+        
     }
 
     /**
@@ -258,22 +277,30 @@ public class Game
     /**
      * Método que cuenta los enemigos que hay y hace aparecer uno nuevo por cada habitacion
      */
-    public void enemigos(){
+    public boolean enemigos(){
+        boolean devolver = false;
         if (alarma()){
             contadorDeEnemigos++;
             if(contadorDeEnemigos == 5){
                 System.out.println("Lo siento, no has llegado a tiempo a la puerta principal para escapar. \n Tal vez la próxima vez...\n"); 
                 System.out.println("------------------\n GAME OVER\n ------------------\n");
-                
+                devolver = true;
             }
         }
-        
+        return devolver;
     }
     
     /**
-     * Método que hace luchar al jugador contra los enemigos
+     * Método que se encarga de comprobar si has ganado la partida
      */
-    public void patata(){}
+    public boolean hasGanado(){
+        boolean win = false;
+        if (contadorDeEnemigos == 0 && player.getCurrentRoom().getDescription().equals("frente a la puerta principal del centro comercial...") && player.tieneLlave()){
+            win = true;
+            System.out.println("Has vencido a todos los enemigos y has conseguido salir!!!!!");
+        }
+        return win;
+    }
 
     /** 
      * Try to go in one direction. If there is an exit, enter
